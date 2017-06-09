@@ -1,0 +1,32 @@
+{
+  "hints": [],
+  "properties": [
+    {
+      "sourceType": "maven_cgb.pojo.BoyProperties",
+      "name": "boy.age",
+      "type": "java.lang.Integer"
+    },
+    {
+      "sourceType": "maven_cgb.pojo.BoyProperties",
+      "name": "boy.hobby",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "maven_cgb.pojo.BoyProperties",
+      "name": "boy.run",
+      "type": "java.lang.String"
+    }
+  ],
+  "groups": [
+    {
+      "sourceType": "maven_cgb.pojo.BoyProperties",
+      "name": "boy",
+      "type": "maven_cgb.pojo.BoyProperties"
+    },
+    {
+      "sourceType": "maven_cgb.demo.test.DemoMaven_pojo",
+      "name": "boy",
+      "type": "maven_cgb.demo.test.DemoMaven_pojo"
+    }
+  ]
+}
