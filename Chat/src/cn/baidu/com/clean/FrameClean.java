@@ -7,15 +7,18 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
-import java.net.UnknownHostException;
 
 public class FrameClean extends java.awt.Frame {
 
 	private static final long serialVersionUID = 1L;
 	private TextArea ta = new TextArea();
 	private TextField tf = new TextField();
+
+	private Socket socket;
 
 	public static void main(String[] args) {
 		new FrameClean().showFrame();
@@ -36,7 +39,7 @@ public class FrameClean extends java.awt.Frame {
 		});
 		tf.addActionListener(new TextAreaListener());// 添加回车事件监听器
 		setVisible(true);// 是否显示
-		connect();
+		connect();// 链接Socket
 	}
 
 	// 链接服务器方法
@@ -44,24 +47,32 @@ public class FrameClean extends java.awt.Frame {
 
 		try {
 			InetAddress localHost = InetAddress.getLocalHost();
-			Socket s = new Socket(localHost,1314);
+			socket = new Socket(localHost, 1314);
 			System.out.println("服务器连接成功");
-			
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 	}
 
-	// 创建监听器内部类
+	// 创建监听器内部类 回车显示到上面的栏目
 	private class TextAreaListener implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			String text = tf.getText();// 获取下方输入框中的值
-			ta.setText(text);// 将下方的输入框文字添加到上方
-			tf.setText("");
+			try {
+				String text = tf.getText();// 获取下方输入框中的值
+				ta.setText(text);// 将下方的输入框文字添加到上方
+				tf.setText("");
+				OutputStream out = socket.getOutputStream();// 获取输出流
+
+				out.write(text.getBytes());// 向服务器发送输入的数据
+				out.flush();// 刷新流
+
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+
 		}
 	}
 }

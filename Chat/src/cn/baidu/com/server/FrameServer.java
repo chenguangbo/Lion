@@ -17,6 +17,11 @@ public class FrameServer {
 				System.out.println("有一个clean链接");
 				OutputStream out = socket.getOutputStream();
 				InputStream in = socket.getInputStream();
+				byte[] b = new byte[1024];
+				int i = 0 ;
+				while ((i=in.read(b)) != -1) {
+					System.out.println(new String(b,0,i));
+				}
 
 			}
 		} catch (IOException e) {
