@@ -10,11 +10,12 @@ import java.net.SocketException;
 public class FrameServer {
 
 	public static void main(String[] args) {
-
+	
+		Socket socket = null;
 		try {
 			while (true) {
 				ServerSocket ss = new ServerSocket(1314);
-				Socket socket = ss.accept();
+				socket = ss.accept();
 				System.out.println("有一个clean链接:" + socket.getLocalAddress().getHostAddress());
 				OutputStream out = socket.getOutputStream();
 				InputStream in = socket.getInputStream();
@@ -24,14 +25,21 @@ public class FrameServer {
 					while ((i = in.read(b)) != -1) {
 						System.out.println(new String(b, 0, i));
 					}
-				} catch (SocketException e) {
+				} catch (Exception e) {
 					e.printStackTrace();
+					socket.close();// 关闭socket
+					
 					System.out.println("客户端断开链接!");
 				}
 
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			try {
+				socket.close();// 关闭socket
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
 		}
 
 	}
