@@ -7,6 +7,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.net.UnknownHostException;
 
 public class FrameClean extends java.awt.Frame {
 
@@ -18,6 +21,7 @@ public class FrameClean extends java.awt.Frame {
 		new FrameClean().showFrame();
 	}
 
+	// 显示窗口
 	public void showFrame() {
 		setLocation(450, 300);// 相对屏幕位置 左右 , 上下
 		this.setSize(100, 300);
@@ -30,10 +34,26 @@ public class FrameClean extends java.awt.Frame {
 				System.exit(0);
 			}
 		});
-		tf.addActionListener(new TextAreaListener());//添加回车事件监听器
+		tf.addActionListener(new TextAreaListener());// 添加回车事件监听器
 		setVisible(true);// 是否显示
+		connect();
 	}
-	
+
+	// 链接服务器方法
+	public void connect() {
+
+		try {
+			InetAddress localHost = InetAddress.getLocalHost();
+			Socket s = new Socket(localHost,1314);
+			System.out.println("服务器连接成功");
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
 	// 创建监听器内部类
 	private class TextAreaListener implements ActionListener {
 
