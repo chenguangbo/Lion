@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.InetAddress;
@@ -19,8 +20,8 @@ public class FrameClean extends java.awt.Frame {
 	private TextField tf = new TextField();
 
 	private Socket socket;
-	private OutputStream out;
-
+	//private OutputStream out;
+	private DataOutputStream out ;
 	public static void main(String[] args) {
 		new FrameClean().showFrame();
 	}
@@ -61,7 +62,8 @@ public class FrameClean extends java.awt.Frame {
 		try {
 			InetAddress localHost = InetAddress.getLocalHost();
 			socket = new Socket(localHost, 1314);
-			out = socket.getOutputStream();// 获取输出流
+			//out = socket.getOutputStream();// 获取输出流
+			 out = new DataOutputStream(socket.getOutputStream());
 			System.out.println("服务器连接成功");
 		} catch (Exception e) {
 			e.printStackTrace();
