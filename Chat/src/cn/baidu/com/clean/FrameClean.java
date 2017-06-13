@@ -37,11 +37,11 @@ public class FrameClean extends java.awt.Frame {
 			@Override
 			public void windowClosing(WindowEvent e) {
 				disConnect();
-				System.exit(0);
+				System.exit(0);//关闭窗口
 			}
 		});
 		tf.addActionListener(new TextAreaListener());// 添加回车事件监听器
-		setVisible(true);// 是否显示
+		setVisible(true);// 是否显示窗口
 		connect();// 链接Socket
 	}
 
@@ -64,7 +64,7 @@ public class FrameClean extends java.awt.Frame {
 			socket = new Socket(localHost, 1314);
 			//out = socket.getOutputStream();// 获取输出流
 			 out = new DataOutputStream(socket.getOutputStream());
-			System.out.println("服务器连接成功");
+			System.out.println("我成功链接到了服务器!");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -80,7 +80,7 @@ public class FrameClean extends java.awt.Frame {
 				String text = tf.getText();// 获取下方输入框中的值
 				ta.setText(socket.getLocalSocketAddress()+"说:"+text);// 将下方的输入框文字添加到上方
 				tf.setText("");
-
+				System.out.println(text);
 				out.write(text.getBytes());// 向服务器发送输入的数据
 				out.flush();// 刷新流
 
