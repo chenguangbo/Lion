@@ -3,6 +3,7 @@ package cn.baidu.com.serv;
 import java.io.DataInputStream;
 import java.io.EOFException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.BindException;
 import java.net.InetAddress;
 import java.net.ServerSocket;
@@ -36,6 +37,7 @@ public class FrameServer {
 				Client c = new Client(s);
 				System.out.println("一个客户端连接到了服务器(我)    IP地址为:" + InetAddress.getLocalHost().getHostAddress());
 				new Thread(c).start();
+				
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -54,10 +56,11 @@ public class FrameServer {
 		private Socket s;
 		private DataInputStream dis = null;
 		private boolean bConnected = false;
-
+		private InputStream in = null ;
 		public Client(Socket s) {
 			this.s = s;
 			try {
+				in = s.getInputStream();
 				dis = new DataInputStream(s.getInputStream());
 				bConnected = true;
 			} catch (IOException e) {
@@ -70,8 +73,15 @@ public class FrameServer {
 
 			try {
 				while (bConnected) {
-					String str = dis.readUTF();
-					System.out.println(str);
+					System.out.println("正在接收"+InetAddress.getLocalHost().getHostAddress()+"  传过来的参数");
+//					String str = dis.readUTF();
+					byte[] b = new byte[1024];
+					int i = 0 ;
+					while ((i=in.read(b))!=-1) {
+						System.out.println(new String(b,0,i));
+					}
+//					in.read(b);
+//					System.out.println(str);
 				}
 
 			} catch (EOFException e) {  //socket链接断开异常
@@ -91,7 +101,7 @@ public class FrameServer {
 					}
 				} catch (IOException e) {
 					e.printStackTrace();
-
+					System.out.println("出现异常了!");
 				}
 			}
 
