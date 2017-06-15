@@ -61,7 +61,7 @@ public class FrameServer {
 			this.s = s;
 			try {
 				in = s.getInputStream();
-				dis = new DataInputStream(s.getInputStream());
+				//dis = new DataInputStream(s.getInputStream());
 				bConnected = true;
 			} catch (IOException e) {
 				e.printStackTrace();
