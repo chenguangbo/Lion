@@ -57,7 +57,7 @@ public class FrameServer {
 				int i = 0;
 				while ((i = in.read(b)) != -1) {
 					String read = new String(b, 0, i);
-					System.out.println(read);// 在console中打印控制端传来的信息
+					System.out.println("服务器端传过来:  "+read);// 在console中打印控制端传来的信息
 					for (Socket c : socket) {// 变量socket集合 给所有在线用户发送客户端传来的信息
 						OutputStream out = c.getOutputStream();// 获取输出流
 						out.write(read.getBytes());// 向客户端发送数据

@@ -22,8 +22,8 @@ public class FrameClean extends java.awt.Frame {
 	private Socket socket;
 	// private OutputStream out;
 	private DataOutputStream out;
-	private InputStream in ;
-	
+	private InputStream in;
+
 	public static void main(String[] args) {
 		new FrameClean().showFrame();
 	}
@@ -45,6 +45,9 @@ public class FrameClean extends java.awt.Frame {
 		tf.addActionListener(new TextAreaListener());// 添加回车事件监听器
 		setVisible(true);// 是否显示窗口
 		connect();// 链接Socket
+
+		Clean c = new Clean(socket);
+		new Thread(c).start();
 	}
 
 	// 释放资源方法
@@ -74,21 +77,6 @@ public class FrameClean extends java.awt.Frame {
 
 	}
 
-	// 定义接受服务端信息的方法
-	public void take() {
-		try {
-			int i = 0 ;
-			byte[] b = new byte[1024];
-			while ((i=in.read(b, 0, i))!=-1) {
-				String take = new String(b,0,i);
-				System.out.println("从服务器端接收到"+take);
-			}
-			
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
 	// 创建监听器内部类 回车显示到上面的栏目
 	private class TextAreaListener implements ActionListener {
 
@@ -108,4 +96,49 @@ public class FrameClean extends java.awt.Frame {
 
 		}
 	}
+
+	class Clean implements Runnable {
+
+		private Socket s;
+
+		public Clean(Socket s) {
+			this.s = s;
+			try {
+				in = s.getInputStream();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+		@Override
+		public void run() {
+			try {
+				int i = 0;
+				byte[] b = new byte[1024];
+				while ((i = in.read(b)) != -1) {
+					String take = new String(b, 0, i);
+					System.out.println("从服务器端接收到" + take);
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+		// 定义接受服务端信息的方法
+		public void take() {
+			try {
+				int i = 0;
+				byte[] b = new byte[1024];
+				while ((i = in.read(b)) != -1) {
+					String take = new String(b, 0, i);
+					System.out.println("从服务器端接收到" + take);
+				}
+
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+	}
+
 }
