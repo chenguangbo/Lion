@@ -18,10 +18,10 @@ public class FrameServer {
 		ss = new ServerSocket(1314);
 		System.out.println("一个客户端连接到了服务器(我)    IP地址为:" + InetAddress.getLocalHost().getHostAddress());
 		while (true) {   //定义循环接受客户端联机
-			Socket s = ss.accept();
+			Socket s = ss.accept(); //接受服务器端的链接
 			System.out.println("有一个客户端连接");
-			Client client = new Client(s);
-			new Thread(client).start();
+			Client client = new Client(s);//创建执行执行类
+			new Thread(client).start();//分配线程执行当前这个链接的数据
 
 		}
 
