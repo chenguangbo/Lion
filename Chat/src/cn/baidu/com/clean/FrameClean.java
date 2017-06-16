@@ -32,8 +32,8 @@ public class FrameClean extends java.awt.Frame {
 	public void showFrame() {
 		setLocation(450, 300);// 相对屏幕位置 左右 , 上下
 		this.setSize(100, 300);
-		add(tf, BorderLayout.SOUTH);// 添加输入框
-		add(ta, BorderLayout.NORTH);// 添加下方输入框
+		add(tf, BorderLayout.SOUTH);// 下方的框
+		add(ta, BorderLayout.NORTH);// 上面的框
 		pack();// 压紧 去除中间的空白部分
 		this.addWindowListener(new WindowAdapter() {// 关闭功能按钮
 			@Override
@@ -84,7 +84,7 @@ public class FrameClean extends java.awt.Frame {
 		public void actionPerformed(ActionEvent e) {
 			try {
 				String text = tf.getText();// 获取下方输入框中的值
-				ta.setText(socket.getLocalSocketAddress() + "说:" + text);// 将下方的输入框文字添加到上方
+				//ta.setText(socket.getLocalSocketAddress() + "说:" + text);// 将下方的输入框文字添加到上方
 				tf.setText("");
 				System.out.println(text);
 				out.write(text.getBytes());// 向服务器发送输入的数据
@@ -118,6 +118,8 @@ public class FrameClean extends java.awt.Frame {
 				while ((i = in.read(b)) != -1) {
 					String take = new String(b, 0, i);
 					System.out.println("从服务器端接收到" + take);
+					ta.setText(take);
+					
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -132,6 +134,8 @@ public class FrameClean extends java.awt.Frame {
 				while ((i = in.read(b)) != -1) {
 					String take = new String(b, 0, i);
 					System.out.println("从服务器端接收到" + take);
+					ta.setText(take);
+					tf.setText(take);
 				}
 
 			} catch (IOException e) {
