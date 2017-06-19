@@ -3,6 +3,12 @@
 
 # Log file
 *.log
+#my  gitignore
+/target
+/.settings
+/hubin
+*.project
+*.classpath
 
 # BlueJ files
 *.ctxt
