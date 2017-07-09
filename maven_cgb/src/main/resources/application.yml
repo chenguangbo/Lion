@@ -1,0 +1,29 @@
+# 配置 url访问路径及端口号
+server:
+  context-path: /
+  port: 8080
+# jsp通配符
+spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp
+# 加载其他配置文件
+  profiles:
+    active: source,contant,pojo
+#配置数据库链接
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/ssm
+    username: root
+    password: root
+    
+# jpa  hibernate 表创建
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    
+    
+    
+      
