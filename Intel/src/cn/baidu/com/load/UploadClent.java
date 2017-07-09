@@ -33,10 +33,7 @@ public class UploadClent {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		
-		
-		
+
 	}
 
 }
