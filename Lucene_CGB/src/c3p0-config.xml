@@ -8,3 +8,5 @@
   	<property name="maxPoolSize">20</property>
   </default-config>
 </c3p0-config>
+
+<!-- create 2017年7月15日23:07:08 -->
