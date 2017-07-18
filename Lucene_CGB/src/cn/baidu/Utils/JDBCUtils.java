@@ -18,7 +18,7 @@ public class JDBCUtils {
 
 	/**
 	 * 获取链接
-	 * 
+	 * createtime 2017年7月18日21:54:10
 	 * @throws SQLException
 	 */
 	public static Connection getConnection() throws SQLException {

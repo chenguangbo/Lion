@@ -29,13 +29,14 @@ import org.apache.lucene.search.TopDocsCollector;
 import org.apache.lucene.search.TopFieldDocs;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
+import org.apache.lucene.store.LockFactory;
 import org.apache.lucene.store.RAMDirectory;
 import org.apache.lucene.util.BytesRef;
 import org.junit.Test;
 
 import co.baidu.po.Book;
 
-public class IndexSearch2 {
+public class IndexSearch3 {
 
 	public void searchIndex() throws Exception {
 		// 1.创建读取路径
@@ -46,10 +47,16 @@ public class IndexSearch2 {
 		//内存中读取
 		RAMDirectory ramDirectory = new RAMDirectory();
 		
+		
+		
 		// 3.读取文件夹里面的索引数据
 		IndexReader ir = DirectoryReader.open(ramDirectory);
+		
+		DirectoryReader r = DirectoryReader.open(ramDirectory);
+		
 		// 4.创建索引搜索对象
-		IndexSearcher is = new IndexSearcher(ir);
+	//	IndexSearcher is = new IndexSearcher(ir);
+		IndexSearcher is = new IndexSearcher(r);
 
 		// CharArraySet stopWords = new CharArraySet(0, true); //从第一个开始不区分大小写
 		// Analyzer a = new StandardAnalyzer(stopWords);
@@ -83,7 +90,7 @@ public class IndexSearch2 {
 	}
 
 	public static void main(String[] args) throws Exception {
-		new IndexSearch2().searchIndex();
+		new IndexSearch3().searchIndex();
 	}
 
 }

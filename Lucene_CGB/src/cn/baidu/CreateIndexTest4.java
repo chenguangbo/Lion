@@ -15,10 +15,14 @@ import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field.Store;
 import org.apache.lucene.document.TextField;
+import org.apache.lucene.index.IndexCommit;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
+import org.apache.lucene.search.Sort;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
+import org.apache.lucene.store.IOContext;
+import org.apache.lucene.store.LockFactory;
 import org.apache.lucene.store.NIOFSDirectory;
 import org.apache.lucene.store.RAMDirectory;
 
@@ -26,7 +30,7 @@ import cn.baidu.dao.BookDao;
 import cn.baidu.dao.BookDaoImpl;
 import co.baidu.po.Book;
 
-public class CreateIndexTest3 {
+public class CreateIndexTest4 {
 
 	/**
 	 * @throws SQLException
@@ -36,6 +40,7 @@ public class CreateIndexTest3 {
 		createIndex();
 	}
 
+	@SuppressWarnings("resource")
 	public static void createIndex() throws SQLException, IOException {
 		// 1.采集数据
 		BookDao bookDao = new BookDaoImpl();
@@ -61,19 +66,22 @@ public class CreateIndexTest3 {
 
 		Directory directory = NIOFSDirectory.open(FileSystems.getDefault().getPath("e:/lucene"));
 		// 存储到内存中
+		
 		Directory ramDir = new RAMDirectory();
 		Path path = Paths.get("d:/lucene");
 		// 存储到硬盘中
 		FSDirectory fsDir = FSDirectory.open(path);
+		
+		
 		// 6.创建IndexWriter写入对象
-
-		IndexWriter iw = new IndexWriter(fsDir, conf);
+		IndexWriter indexWriter = new IndexWriter(ramDir, conf);
+		
 //		 7.把Document写入到索引库中
-		for (Document docs : documents) {
-			iw.addDocument(docs);
-		}
+		indexWriter.addDocuments(documents);
+		indexWriter.commit();
+		indexWriter.close();
+		
 		// 8.释放资源
-		iw.close();
 		Date d = new Date();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String format = dateFormat.format(d);
