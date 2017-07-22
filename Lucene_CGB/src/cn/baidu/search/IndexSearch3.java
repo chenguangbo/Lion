@@ -50,13 +50,13 @@ public class IndexSearch3 {
 		
 		
 		// 3.读取文件夹里面的索引数据
-		IndexReader ir = DirectoryReader.open(ramDirectory);
+		IndexReader ir = DirectoryReader.open(dir);
 		
-		DirectoryReader r = DirectoryReader.open(ramDirectory);
+	//	DirectoryReader r = DirectoryReader.open(ramDirectory);
 		
 		// 4.创建索引搜索对象
-	//	IndexSearcher is = new IndexSearcher(ir);
-		IndexSearcher is = new IndexSearcher(r);
+		IndexSearcher is = new IndexSearcher(ir);
+	//	IndexSearcher is = new IndexSearcher(r);
 
 		// CharArraySet stopWords = new CharArraySet(0, true); //从第一个开始不区分大小写
 		// Analyzer a = new StandardAnalyzer(stopWords);
