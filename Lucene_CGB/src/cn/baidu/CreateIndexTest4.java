@@ -40,7 +40,7 @@ public class CreateIndexTest4 {
 		createIndex();
 	}
 
-	@SuppressWarnings("resource")
+	@SuppressWarnings("all")
 	public static void createIndex() throws SQLException, IOException {
 		// 1.采集数据
 		BookDao bookDao = new BookDaoImpl();
