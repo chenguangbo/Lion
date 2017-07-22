@@ -40,10 +40,10 @@ public class SearchIndex {
 		Analyzer an = new IKAnalyzer();
 		
 		// 5.指定默认搜索的域 filed域                         域名   分词器
-		QueryParser queryParser = new QueryParser("name", an);
+		QueryParser queryParser = new QueryParser("description", an);
 		
 		// 6.创建查询条件  
-		Query query = queryParser.parse("description:java");
+		Query query = queryParser.parse("description:lucene");
 		
 		// 7.执行查询                          查询条件   查询多少条
 		TopDocs topDocs = indexSearcher.search(query, 100);
